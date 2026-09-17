@@ -1,5 +1,5 @@
 // src/pages/enrollments/GetEnrollments.jsx
-import styles from "./enrollments/Enrollments.module.css";
+import styles from "./Enrollments/Enrollments.module.css";
 import {
   FaSearch,
   FaSync,
