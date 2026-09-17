@@ -10,7 +10,7 @@
 // import { useEffect, useState } from "react";
 // import toast from "react-hot-toast";
 // import api from "../../Utils/api";
-// import FilterComponent from "../../Components/Filter/Filter";
+// import FilterComponent from "../../components/Filter/Filter";
 
 // const ApiUsesLog = () => {
 //   const toolbarLeft = (
@@ -153,7 +153,7 @@
 // import { useEffect, useState } from "react";
 // import toast from "react-hot-toast";
 // import api from "../../Utils/api";
-// import FilterComponent from "../../Components/Filter/Filter";
+// import FilterComponent from "../../components/Filter/Filter";
 // import Pagination from "./Pagination"; // Import Pagination component
 // import ApiLogViewModal from "./APIUsesLogViewModal";
 
@@ -433,7 +433,7 @@ import Table from "../../components/Table/Table";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "../../Utils/api";
-import FilterComponent from "../../Components/Filter/Filter";
+import FilterComponent from "../../components/Filter/Filter";
 import Pagination from "./Pagination"; 
 import ApiLogViewModal from "./APIUsesLogViewModal";
 

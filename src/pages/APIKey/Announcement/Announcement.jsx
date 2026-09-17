@@ -6,7 +6,7 @@ import api from "../../../Utils/api";
 import toast from "react-hot-toast";
 import Table from "../../../components/Table/Table";
 import Pagination from "../Pagination";
-import DeleteConfirmModal from "../../../Components/FinalDeleteModal/DeleteConfirmModal";
+import DeleteConfirmModal from "../../../components/FinalDeleteModal/DeleteConfirmModal";
 
 const Announcement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

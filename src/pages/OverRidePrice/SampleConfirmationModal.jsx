@@ -1,6 +1,6 @@
 // components/SimpleConfirmationModal/SimpleConfirmationModal.jsx
 import React from "react";
-import styles from "../../Components/FinalDeleteModal/DeleteConfirmModal.module.css";
+import styles from "../../components/FinalDeleteModal/DeleteConfirmModal.module.css";
 import { FaTimes } from "react-icons/fa";
 
 const SimpleConfirmationModal = ({ isOpen, onClose, onConfirm, message }) => {

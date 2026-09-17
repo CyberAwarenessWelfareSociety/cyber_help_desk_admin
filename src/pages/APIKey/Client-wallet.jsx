@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FilterComponent from "../../Components/Filter/Filter";
+import FilterComponent from "../../components/Filter/Filter";
 import styles from "./ApiKey.module.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8600/api";

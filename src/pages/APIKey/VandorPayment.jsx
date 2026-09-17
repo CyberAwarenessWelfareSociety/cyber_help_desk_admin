@@ -4,7 +4,7 @@ import Table from "../../components/Table/Table";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "../../Utils/api";
-import FilterComponent from "../../Components/Filter/Filter";
+import FilterComponent from "../../components/Filter/Filter";
 import Pagination from "./Pagination";
 import AddClient from "./AddClient";
 import EditClient from "./EditClient";

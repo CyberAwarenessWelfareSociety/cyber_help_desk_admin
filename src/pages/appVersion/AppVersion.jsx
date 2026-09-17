@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import api from "@/Utils/api";
 import EditAppVersion from "./EditAppVersion";
 import AddAppVersion from "./AddAppVersion";
-import DeleteConfirmModal from "../../Components/FinalDeleteModal/DeleteConfirmModal";
+import DeleteConfirmModal from "../../components/FinalDeleteModal/DeleteConfirmModal";
 
 const AppVersion = () => {
   const [versions, setVersions] = useState([]);

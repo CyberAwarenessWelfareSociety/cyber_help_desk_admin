@@ -13,10 +13,10 @@ import Table from "../../components/Table/Table";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "../../Utils/api";
-import FilterComponent from "../../Components/Filter/Filter";
+import FilterComponent from "../../components/Filter/Filter";
 import AddClass from "./AddClass";
 import EditClass from "./EditClass";
-import DeleteConfirmModal from "../../Components/FinalDeleteModal/DeleteConfirmModal";
+import DeleteConfirmModal from "../../components/FinalDeleteModal/DeleteConfirmModal";
 
 const GetClasses = () => {
   const [classes, setClasses] = useState([]);

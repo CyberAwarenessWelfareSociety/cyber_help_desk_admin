@@ -9,7 +9,7 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import Table from "../../components/Table/Table";
-import FilterComponent from "../../Components/Filter/Filter";
+import FilterComponent from "../../components/Filter/Filter";
 import AddApiKey from "./AddApiKey";
 import EditApiKey from "./EditApiKey";
 

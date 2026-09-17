@@ -4,13 +4,13 @@ import Table from "../../components/Table/Table";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "../../Utils/api";
-import FilterComponent from "../../Components/Filter/Filter";
+import FilterComponent from "../../components/Filter/Filter";
 import Pagination from "../APIKey/Pagination";
 import UpdateOverRidePrice from "./UpdateOverRidePrice";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import DeleteConfirmModal from "../../Components/FinalDeleteModal/DeleteConfirmModal";
+import DeleteConfirmModal from "../../components/FinalDeleteModal/DeleteConfirmModal";
 import SimpleConfirmationModal from "./SampleConfirmationModal";
 
 const AddOverRidePrice = ({ onClose, onAdd }) => {
