@@ -80,6 +80,7 @@ import BulkCheckClients from "./pages/BulkCheckClients/index";
 import BulkCheckLogs from "./pages/BulkCheckClients/logs";
 import FaceMatching from "./pages/FaceMatching/FaceMatching";
 function App() {
+  console.log("hello world ")
   return (
     <Router>
       {/* <Toaster position="top-right" reverseOrder={false}/> */}

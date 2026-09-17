@@ -1,0 +1,63 @@
+name: Deploy Cyber Help Admin
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: cyber-help-admin-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Vite app
+        run: npm run build
+
+      - name: Prepare server directory
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/system.cyberawareness.ngo/html
+            rm -rf /var/www/system.cyberawareness.ngo/html/*
+
+      - name: Upload website
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "dist/*"
+          target: "/var/www/system.cyberawareness.ngo/html/"
+          strip_components: 1
+
+      - name: Set permissions
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            chown -R www-data:www-data /var/www/system.cyberawareness.ngo/html
+            find /var/www/system.cyberawareness.ngo/html -type d -exec chmod 755 {} \;
+            find /var/www/system.cyberawareness.ngo/html -type f -exec chmod 644 {} \;
+
+            echo "Cyber Help Admin deployed successfully"
