@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./DashboardLayout.module.css";
-import { UserContext } from "../context/contextAPI";
+import { UserContext } from "../Context/contextAPI";
 import { useContext } from "react";
 
 import { MdDarkMode, MdLightMode } from "react-icons/md";

@@ -19,7 +19,7 @@
 // src/components/PrivateRoute.js
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { UserContext } from "../context/contextAPI";
+import { UserContext } from "../Context/contextAPI";
 import styles from "../Utils/globaleSpinner.module.css";
 import toast from "react-hot-toast";
 

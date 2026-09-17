@@ -3,7 +3,7 @@ import api from "../../Utils/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import styles from "./LogoutModal.module.css";
-import { UserContext } from "../../context/contextAPI";
+import { UserContext } from "../../Context/contextAPI";
 
 const LogoutModal = ({ onClose }) => {
   const navigate = useNavigate();

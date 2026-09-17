@@ -3,7 +3,7 @@ import styles from "./Signup.module.css";
 import api from "../../Utils/api";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import { UserContext } from "../../context/contextAPI";
+import { UserContext } from "../../Context/contextAPI";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
