@@ -1,0 +1,51 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100%;
+  background: white;
+  border-left: 1px solid #ccc;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close {
+  background: none;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.description {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal th, .modal td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.allow {
+  color: #4ba46b;
+  font-weight: bold;
+}
+
+.deny {
+  color: red;
+  font-weight: bold;
+}

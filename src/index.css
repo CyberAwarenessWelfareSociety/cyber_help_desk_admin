@@ -1,0 +1,155 @@
+/* Reset and base styles */
+@import "tailwindcss";
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+/* =============================
+   Core Theme Variables
+   ============================= */
+:root {
+  --bg-main: #f9f9fa;           /* main background */
+  --bg-sidebar: #fff;           /* sidebar background */
+  --bg-header: #f3f6fa;         /* header background */
+  --text-main: #191c21;         /* primary text */
+  --text-sidebar: #20232a;      /* sidebar text */
+  --text-sidebar-muted: #757575;/* sidebar section label */
+  --sidebar-hover: #dafbe0;
+  --sidebar-hover-text: #187b47;
+  --sidebar-active: #e6faf2;
+  --border: #e0f0e9;
+  --box: #edf5ee;
+  --icon: #3e6259;
+
+  /* Special accents */
+  --accent: #53ce8b;
+  --accent-hover: #35e38e;
+  --sidebar-bottom-text: #8f611a;
+  --sidebar-bottom-hover: #e67720;
+  --sidebar-bottom-bg: #fef2e4;
+
+  /* Input and search */
+  --search-bg: #ecfaec;
+  --search-box: #b1f7b0;
+}
+
+body.dark {
+  --bg-main: #191c21;
+  --bg-sidebar: #20232a;
+  --bg-header: #16181e;
+  --text-main: #eaeaea;
+  --text-sidebar: #e0e7ef;
+  --text-sidebar-muted: #949ba8;
+  --sidebar-hover: #242d26;
+  --sidebar-hover-text: #9bffca;
+  --sidebar-active: #323543;
+  --border: #23282f;
+  --box: #242d26;
+  --icon: #b9e6cc;
+
+  --accent: #35e38e;
+  --accent-hover: #53ce8b;
+  --sidebar-bottom-text: #ffd5ab;
+  --sidebar-bottom-hover: #ffbe76;
+  --sidebar-bottom-bg: #23201b;
+
+  --search-bg: #23262e;
+  --search-box: #181c21;
+}
+
+.dark {
+  --bg: #191c21;
+  --text: #eaeaea;
+  --accent: #35e38e;
+  /* ...add more as needed */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar {
+  background: var(--bg);
+  color: var(--text);
+  /* ... */
+}
+
+
+html,
+body {
+  /* height: 100%; */
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Utility classes */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 16px; }
+.mt-4 { margin-top: 24px; }
+
+.p-2 { padding: 8px; }
+.p-3 { padding: 16px; }
+.p-4 { padding: 24px; }
+
+
+.w-100 {
+
+  width: 100%;
+}

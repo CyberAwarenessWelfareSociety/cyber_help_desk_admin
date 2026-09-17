@@ -1,0 +1,429 @@
+.container {
+  /* padding: 20px; */
+  font-family: 'Inter', sans-serif;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.searchInput {
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: 280px;
+}
+
+.card {
+  background-color: #fff;
+  /* border-radius: 12px; */
+  border: 1px solid #E5E7EB;
+  padding: 24px;
+  height: 100vh;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.sectionTitleRow {
+  background-color: #F9FAFB;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  color: #111827;
+}
+.table {
+
+    width: 100%;
+}
+
+.tableHeader {
+  background-color: #F9FAFB;
+  color: #6B7280;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  padding: 12px 8px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.tableHeader th {
+  padding: 12px 8px;
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 12px 8px;
+  font-size: 14px;
+  color: #111827;
+  border-top: 1px solid #F3F4F6;
+}
+
+tbody tr:hover {
+  background-color: #F9FAFB;
+}
+
+.deltaUp {
+  color: #16A34A;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.deltaDown {
+  color: #DC2626;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.deltaNeutral {
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.actionIcons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.icon {
+  color: #6B7280;
+  cursor: pointer;
+}
+
+.chartView {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #4B5563;
+  cursor: pointer;
+}
+
+.toolbarRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+}
+
+.toolbarLeft {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.iconBtn:hover {
+  background-color: #f0f0f0;
+}
+
+.chartViewBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #dcdcdc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.chartViewBtn:hover {
+  background-color: #f9f9f9;
+}
+
+/* ------wallet----- */
+.zeroBalance {
+  color: #888;
+  font-style: italic;
+}
+
+.positiveBalance {
+  color: #000;
+  font-weight: bold;
+}
+
+
+
+
+
+
+/* -----  Api log ---------- */
+.highLatency {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.lowLatency {
+  color: #28a745;
+}
+
+.textCenter{
+  text-align: center;
+}
+
+/* ----------------- Pagination css ------------- */
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 1rem;
+}
+
+.pageInfo {
+  font-size: 0.875rem;
+  color: #666;
+   white-space: nowrap;
+   padding-right: 0.5rem;
+}
+
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pageSizeSelect {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-right: 1rem;
+}
+
+.pageButton {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.pageButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageButton.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pageButton.active:hover {
+   background-color: #007bff;
+  color: white;
+}
+
+.ellipsis {
+  padding: 0.5rem;
+}
+
+
+
+/* ------------------------ */
+
+
+
+.topBarRow {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topBarRow button {
+
+  background-color: #16A34A;
+  padding: 10px 10px;
+  border-radius: 5px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.topBarActions {
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topBarActions input {
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+} 
+
+.actionBtn {
+  margin: 0px 5px;
+}
+
+.actionBtn.edit {
+  color: #2563eb;
+  /* background: #e0f2fe; */
+}
+.actionBtn.edit:hover {
+  background: #bfdbfe;
+}
+
+.actionBtn.delete {
+  color: #dc2626;
+  /* background: #fee2e2; */
+}
+.actionBtn.delete:hover {
+  background: #fecaca;
+}
+
+
+/* ---------------------------- client payment/Donation css ----------------- */
+.loadingCell, .noData {
+  text-align: center;
+  padding: 20px;
+}
+
+.completed {
+  color: #0cba80;
+  font-weight: 500;
+}
+
+.pending {
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.failed {
+  color: #ef4444;
+  font-weight: 500;
+}
+.noWrapText {
+  white-space: nowrap;
+}
+/* -------------- loading Spinner ------------- */
+/* Custom Spinner Styles */
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+}
+
+.customSpinner {
+  width: 30px;
+  height: 30px;
+  border: 4px solid #f3f3f3;
+  border-top: 5px solid #6366f1; /* Change color to match your theme */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Toggle Switch Wrapper */
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;    /* <-- centers horizontally in td */
+  height: 100%;
+  min-height: 32px;           /* 32px for a little extra click-space */
+  /* Alternatively, use: width: 48px; if you want fixed width */
+}
+
+/* Hide input, but accessible for screen readers */
+.toggleInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* The slider */
+.toggleSlider {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: background 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background-color 0.3s;
+  will-change: transform;
+}
+
+/* Checked state */
+.toggleInput:checked + .toggleSlider {
+  background-color: #4caf50;
+}
+
+.toggleInput:checked + .toggleSlider .toggleKnob {
+  transform: translateX(18px);
+}

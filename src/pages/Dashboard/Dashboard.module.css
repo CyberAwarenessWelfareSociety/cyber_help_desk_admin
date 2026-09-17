@@ -1,0 +1,193 @@
+/* Base */
+.dashboard {
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Header Row */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filters select {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.createBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Stats Row */
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.statBox {
+  flex: 1 1 170px;
+  padding: 16px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+.statHeader svg {
+  font-size: 16px;
+}
+
+.statValue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.statPercent {
+  font-size: 12px;
+  color: #4BA46B;
+  font-weight: 500;
+}
+
+/* Stat Colors */
+.blue {
+  background-color: #e8f4ff;
+}
+
+.purple {
+  background-color: #f0ecff;
+}
+
+.green {
+  background-color: #e9fff0;
+}
+
+.orange {
+  background-color: #fff4e3;
+}
+
+.pink {
+  background-color: #ffe9ed;
+}
+
+/* Info Cards */
+.sectionRow {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.simpleBox,
+.blackBox,
+.greenBox {
+  flex: 1 1 30%;
+  padding: 16px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.simpleBox {
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+
+.blackBox {
+  background-color: #000;
+  color: white;
+}
+
+.greenBox {
+  background-color: #4BA46B;
+  color: white;
+}
+
+/* Inside Boxes */
+.simpleBox h4,
+.blackBox h4,
+.greenBox h4 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.simpleContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.simpleContent span {
+  font-size: 13px;
+  color: #ffffff;
+  display: block;
+}
+
+.simpleContent p {
+  margin: 4px 0 12px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sectionRow, .statsRow {
+    flex-direction: column;
+  }
+
+  .simpleBox,
+  .blackBox,
+  .greenBox {
+    width: 100%;
+  }
+
+  .statBox {
+    width: 100%;
+  }
+}

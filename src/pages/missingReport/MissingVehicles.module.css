@@ -1,0 +1,263 @@
+.container {
+  padding: 24px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.header h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  color: #1e2937;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #64748b;
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Search */
+.searchContainer {
+  max-width: 480px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #f8fafc;
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.tableRow:hover {
+  background: #f8fafc;
+}
+
+.regNo {
+  font-family: 'SF Mono', monospace;
+  font-weight: 600;
+  color: #1e40af;
+  letter-spacing: 0.5px;
+}
+
+/* Status Badge */
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.missing {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.stolen {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.viewBtn, .acceptBtn, .rejectBtn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.viewBtn {
+  background: #3b82f6;
+  color: white;
+}
+
+.viewBtn:hover { background: #2563eb; }
+
+.acceptBtn {
+  background: #22c55e;
+  color: white;
+}
+
+.acceptBtn:hover { background: #16a34a; }
+
+.rejectBtn {
+  background: #ef4444;
+  color: white;
+}
+
+.rejectBtn:hover { background: #dc2626; }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.pageBtn {
+  padding: 10px 20px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 720px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #1e2937;
+}
+
+.modalContent {
+  padding: 24px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.infoColumn h4 {
+  margin: 0 0 12px 0;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 6px;
+}
+
+.infoColumn p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.modalActions {
+  padding: 20px 24px 24px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 1px solid #e2e8f0;
+}
+
+.closeBtn, .closeModalBtn {
+  background: #64748b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.closeBtn:hover, .closeModalBtn:hover {
+  background: #475569;
+}
+
+.loadingRow, .noData {
+  text-align: center;
+  padding: 80px 20px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.actionHeader {
+  text-align: center;
+}

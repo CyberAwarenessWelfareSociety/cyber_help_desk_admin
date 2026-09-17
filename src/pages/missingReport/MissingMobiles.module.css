@@ -1,0 +1,193 @@
+.container {
+  padding: 24px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.header h1 {
+  margin: 0 0 8px 0;
+  color: #1e2937;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #64748b;
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Search */
+.topBar {
+  margin: 24px 0 20px 0;
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 420px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #f8fafc;
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e2937;
+}
+
+.tableRow:hover {
+  background: #f8fafc;
+}
+
+/* IMEI Highlight */
+.imei {
+  font-family: 'SF Mono', monospace;
+  font-weight: 600;
+  color: #1e40af;
+  letter-spacing: 0.5px;
+}
+
+/* Status Badge */
+.statusBadge {
+  background: #fef3c7;
+  color: #d97706;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.acceptBtn, .rejectBtn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.acceptBtn {
+  background: #22c55e;
+  color: white;
+}
+
+.acceptBtn:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
+.rejectBtn {
+  background: #ef4444;
+  color: white;
+}
+
+.rejectBtn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* Loading & Empty States */
+.loadingRow, .noData {
+  text-align: center;
+  padding: 60px 20px !important;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.pageBtn {
+  padding: 10px 18px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 15px;
+  color: #64748b;
+}
+
+.actionHeader {
+  text-align: center;
+}

@@ -1,0 +1,166 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* HEADER */
+.header {
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #111827;
+}
+
+.header p {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* FORM */
+.formContainer {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+}
+
+.form input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+.form input:focus {
+  border-color: #2563eb;
+}
+
+.form button {
+  padding: 10px 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form button:hover {
+  background: #1d4ed8;
+}
+
+/* LIST */
+.listContainer {
+  padding: 0 20px 20px;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.listHeader h3 {
+  font-size: 16px;
+  color: #111827;
+}
+
+.count {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ITEMS */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.item span {
+  font-size: 14px;
+  color: #111827;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+/* Edit */
+.editBtn {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.editBtn:hover {
+  background: #bae6fd;
+}
+
+/* Delete */
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.deleteBtn:hover {
+  background: #fecaca;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 40px 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 500px) {
+  .form {
+    flex-direction: column;
+  }
+
+  .form button {
+    width: 100%;
+  }
+}

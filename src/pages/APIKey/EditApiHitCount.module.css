@@ -1,0 +1,154 @@
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-right: 30px;
+}
+
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.modalBody {
+  margin-bottom: 25px;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.inputField:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Button Styles */
+.primaryBtn {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  box-shadow: 0 4px 10px rgb(0 123 255 / 0.4);
+}
+
+.primaryBtn:hover,
+.primaryBtn:focus {
+  background: #1467ba;
+  outline: none;
+}
+
+.secondaryBtn {
+  background: #ddd;
+  color: #333;
+  padding: 0.7rem 1.3rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.25s ease;
+  box-shadow: 0 3px 7px rgb(0 0 0 / 0.1);
+}
+
+.secondaryBtn:hover,
+.secondaryBtn:focus {
+  background: #bbb;
+  outline: none;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #7A808A;
+  font-size: 1.3rem;
+  padding: 5px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: #267eff;
+  outline: none;
+}
+
+/* Loading state */
+.loadingBtn {
+  position: relative;
+  pointer-events: none;
+}
+
+.loadingBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

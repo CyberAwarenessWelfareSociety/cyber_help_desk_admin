@@ -1,0 +1,497 @@
+/* Courses.module.css */
+
+.container {
+  font-family: 'Inter', sans-serif;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #E5E7EB;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+/* src/pages/class-questions/classquestions/ClassQuestions.module.css */
+.questionText {
+  max-width: 300px;
+  line-height: 1.5;
+}
+.questionText div {
+  word-break: break-word;
+}
+
+.optionsCell div {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.correctAnswer {
+  color: #16a34a;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.cardTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1A1A1A;
+}
+
+.topBarRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.topBarActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.searchWrapper {
+  position: relative;
+}
+
+.searchInput {
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  width: 300px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.searchInput:focus {
+  border-color: #6366F1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.addBtn {
+  background-color: #16A34A;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.addBtn:hover {
+  background-color: #15803D;
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  color: #6B7280;
+  transition: all 0.2s;
+}
+
+.iconButton:hover {
+  background-color: #F3F4F6;
+  color: #374151;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tableHeader th {
+  text-align: left;
+  padding: 12px 16px;
+  background-color: #F9FAFB;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.table tbody tr:hover {
+  background-color: #F9FAFB;
+}
+
+.table td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+.noWrapText {
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Thumbnail in table */
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.noThumbnail {
+  width: 60px;
+  height: 60px;
+  background-color: #F3F4F6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #9CA3AF;
+  border: 1px dashed #D1D5DB;
+}
+
+/* Action Buttons */
+.actionBtn {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 4px;
+  transition: all 0.2s;
+  font-size: 16px;
+}
+
+.actionBtn.edit {
+  color: #2563EB;
+}
+
+.actionBtn.edit:hover {
+  background-color: #DBEAFE;
+}
+
+.actionBtn.delete {
+  color: #DC2626;
+}
+
+.actionBtn.delete:hover {
+  background-color: #FECACA;
+}
+
+/* Toggle Switch */
+.toggleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 40px;
+}
+
+.toggleInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #D1D5DB;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggleInput:checked + .toggleSlider {
+  background-color: #4CAF50;
+}
+
+.toggleInput:checked + .toggleSlider .toggleKnob {
+  transform: translateX(20px);
+}
+
+/* Loading & No Data */
+.loadingCell,
+.noData {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6B7280;
+  font-size: 15px;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.customSpinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #6366F1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pagination */
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid #E5E7EB;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pageInfo {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.pageControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageSizeSelect {
+  padding: 6px 10px;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.pageButton {
+  padding: 6px 12px;
+  border: 1px solid #D1D5DB;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: #F3F4F6;
+}
+
+.pageButton.active {
+  background-color: #6366F1;
+  color: white;
+  border-color: #6366F1;
+}
+
+.pageButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .topBarRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+
+  .topBarActions {
+    justify-content: space-between;
+  }
+
+  .paginationContainer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pageControls {
+    justify-content: center;
+  }
+
+  .table {
+    font-size: 13px;
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+}
+/* ==================== Class Materials Specific Styles ==================== */
+
+/* Type Icon + Label in table */
+.typeIcon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.typeIcon span {
+  text-transform: capitalize;
+}
+
+/* Material Title */
+.title {
+  font-weight: 500;
+  color: #1f2937;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title:hover {
+  color: #2563eb;
+}
+
+/* Thumbnail in Materials Table */
+.thumbnail {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-color: #6366f1;
+}
+
+/* External Link Style */
+.externalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.externalLink:hover {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Material Type Badges (if you want colored badges instead of icons) */
+.typeBadge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.typeBadge.video {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.typeBadge.pdf {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.typeBadge.image {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.typeBadge.audio {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.typeBadge.other {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .thumbnail {
+    width: 70px;
+    height: 50px;
+  }
+
+  .title {
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .typeIcon {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .thumbnail {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+
+  .externalLink {
+    font-size: 13px;
+    padding: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+}
