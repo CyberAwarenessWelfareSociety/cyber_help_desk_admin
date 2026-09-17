@@ -1,4 +1,4 @@
-// import styles from "./Apikey.module.css";
+// import styles from "./ApiKey.module.css";
 // import {
 //   FaSearch,
 //   FaFilter,
@@ -212,7 +212,7 @@
 
 // export default ApiHitBalance;
 
-import styles from "./Apikey.module.css";
+import styles from "./ApiKey.module.css";
 import {
   FaSearch,
   FaFilter,
