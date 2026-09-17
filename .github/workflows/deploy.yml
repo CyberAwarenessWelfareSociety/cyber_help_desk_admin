@@ -29,12 +29,38 @@ jobs:
       - name: Build Vite app
         run: npm run build
 
+      - name: Check VPS SSH settings
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          for name in VPS_HOST VPS_USER VPS_SSH_KEY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name is missing or empty. Set it in the repository's Actions secrets."
+              exit 1
+            fi
+          done
+
+          key_file="$(mktemp)"
+          trap 'rm -f "$key_file"' EXIT
+          chmod 600 "$key_file"
+          printf '%s\n' "$VPS_SSH_KEY" > "$key_file"
+          if ! ssh-keygen -y -P "$VPS_SSH_PASSPHRASE" -f "$key_file" > /dev/null; then
+            echo "::error::VPS_SSH_KEY is not a readable private key, or VPS_SSH_PASSPHRASE is incorrect."
+            exit 1
+          fi
+
       - name: Prepare server directory
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || '22' }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           script: |
             mkdir -p /var/www/system.cyberawareness.ngo/html
             rm -rf /var/www/system.cyberawareness.ngo/html/*
@@ -45,6 +71,8 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || '22' }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           source: "dist/*"
           target: "/var/www/system.cyberawareness.ngo/html/"
           strip_components: 1
@@ -55,6 +83,8 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT || '22' }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           script: |
             chown -R www-data:www-data /var/www/system.cyberawareness.ngo/html
             find /var/www/system.cyberawareness.ngo/html -type d -exec chmod 755 {} \;
