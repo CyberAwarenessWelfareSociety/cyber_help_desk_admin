@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Gallery.module.css";
+import styles from "./gallery.module.css";
 import GalleryModal from "./GalleryModal";
 import toast from "react-hot-toast";
 import axios from "axios";

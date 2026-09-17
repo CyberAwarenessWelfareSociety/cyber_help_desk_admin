@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from './GalleryModal.module.css';
+import styles from './galleryModal.module.css';
 import toast from 'react-hot-toast';
 
 const GalleryModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existingItem }) => {
