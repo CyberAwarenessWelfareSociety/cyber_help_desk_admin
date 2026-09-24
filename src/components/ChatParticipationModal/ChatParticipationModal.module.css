@@ -82,8 +82,33 @@
 .removeAllButton:hover:not(:disabled), .removeButton:hover:not(:disabled) { background: #b91c1c; }
 .removeAllButton:disabled, .removeButton:disabled { cursor: not-allowed; opacity: 0.55; }
 
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 24px 0;
+  padding: 10px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  color: #64748b;
+}
+
+.searchBox:focus-within {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.searchBox input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1e293b;
+  font: inherit;
+}
+
 .content {
-  max-height: calc(88vh - 154px);
+  max-height: calc(88vh - 225px);
   overflow-y: auto;
   padding: 18px 24px 24px;
 }

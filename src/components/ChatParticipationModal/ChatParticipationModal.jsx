@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { FaComments, FaSpinner, FaTimes, FaTrashAlt } from "react-icons/fa";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { FaComments, FaSearch, FaSpinner, FaTimes, FaTrashAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import api from "../../Utils/api";
 import styles from "./ChatParticipationModal.module.css";
@@ -9,6 +9,7 @@ const ChatParticipationModal = ({ client, onClose }) => {
   const [loading, setLoading] = useState(true);
   const [removingChatId, setRemovingChatId] = useState(null);
   const [removingAll, setRemovingAll] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const loadParticipations = useCallback(async () => {
     if (!client?.id) return;
@@ -55,6 +56,13 @@ const ChatParticipationModal = ({ client, onClose }) => {
   };
 
   const busy = removingAll || removingChatId !== null;
+  const filteredParticipations = useMemo(() => {
+    const query = searchTerm.trim().toLowerCase();
+    if (!query) return participations;
+    return participations.filter((participation) =>
+      String(participation.Chat?.title || "").toLowerCase().includes(query),
+    );
+  }, [participations, searchTerm]);
 
   return (
     <div className={styles.overlay} onClick={onClose} role="presentation">
@@ -87,14 +95,27 @@ const ChatParticipationModal = ({ client, onClose }) => {
           </button>
         </div>
 
+        <label className={styles.searchBox}>
+          <FaSearch aria-hidden="true" />
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search chat name..."
+            aria-label="Search chat name"
+          />
+        </label>
+
         <div className={styles.content}>
           {loading ? (
             <div className={styles.state}><FaSpinner className={styles.spin} /> Loading chats...</div>
           ) : participations.length === 0 ? (
             <div className={styles.state}>This client is not participating in any chat.</div>
+          ) : filteredParticipations.length === 0 ? (
+            <div className={styles.state}>No chat names match “{searchTerm.trim()}”.</div>
           ) : (
             <div className={styles.chatList}>
-              {participations.map((participation) => {
+              {filteredParticipations.map((participation) => {
                 const chat = participation.Chat || {};
                 const isRemoving = removingChatId === participation.chat_id;
                 return (
