@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import styles from "./Volunteers.module.css";
 import EditVolunteerModal from "./EditVolunteerModal";
+import ChatParticipationModal from "../../components/ChatParticipationModal/ChatParticipationModal";
 import {
   FaEye,
   FaSync,
@@ -15,6 +16,7 @@ import {
   FaChevronRight,
   FaEdit,
   FaTrashAlt,
+  FaComments,
 } from "react-icons/fa";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8600/api";
@@ -33,6 +35,7 @@ const GetVolunteers = () => {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [editingVolunteer, setEditingVolunteer] = useState(null);
+  const [chatParticipationClient, setChatParticipationClient] = useState(null);
 
   // Assign Modal States
   const [showAssignModal, setShowAssignModal] = useState(false);
@@ -460,6 +463,18 @@ const GetVolunteers = () => {
                         <FaEdit /> Edit
                       </button>
 
+                      <button
+                        className={styles.chatBtn}
+                        onClick={() => setChatParticipationClient({
+                          id: app.client_id,
+                          name: app.full_name,
+                        })}
+                        title="Manage chat participation"
+                        disabled={!app.client_id}
+                      >
+                        <FaComments /> Chats
+                      </button>
+
                       {!app.is_approved && !app.is_rejected && (
                         <>
                           <button
@@ -824,6 +839,13 @@ const GetVolunteers = () => {
           models={models}
           onClose={() => setEditingVolunteer(null)}
           onSuccess={handleEditSuccess}
+        />
+      )}
+
+      {chatParticipationClient && (
+        <ChatParticipationModal
+          client={chatParticipationClient}
+          onClose={() => setChatParticipationClient(null)}
         />
       )}
     </div>

@@ -10,6 +10,7 @@ import {
   FaKey,
   FaCopy,
   FaCheck,
+  FaComments,
 } from "react-icons/fa";
 import Table from "../../components/Table/Table";
 import { useEffect, useState } from "react";
@@ -31,6 +32,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import AccessControlModal from "./AccessControlModal";
 import SyncClientModal from "./SyncClientModal";
+import ChatParticipationModal from "../../components/ChatParticipationModal/ChatParticipationModal";
 
 const generateCawsDeviceNumber = (deviceId) => {
   if (!deviceId) return "";
@@ -406,6 +408,7 @@ const GetClients = () => {
   const [isRechargeModalOpen, setIsRechargeModalOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [copiedItem, setCopiedItem] = useState(null);
+  const [chatParticipationClient, setChatParticipationClient] = useState(null);
 
   const handleCopy = (text, label = "ID") => {
     if (!text) return;
@@ -821,13 +824,14 @@ const getVisiblePages = () => {
                 {/* <th>Aadhar Access</th> */}
                 {/* <th>PAN Access</th> Added PAN Access column */}
                 <th>Active</th>
+                <th>is_deleted</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="13" className={styles.loadingCell}>
+                  <td colSpan="14" className={styles.loadingCell}>
                     {" "}
                     <div className={styles.spinnerContainer}>
                       <div className={styles.customSpinner}></div>
@@ -1107,6 +1111,27 @@ const getVisiblePages = () => {
                         </label>
                       </td>
                       <td>
+                        <label className={styles.toggleWrapper}>
+                          <input
+                            type="checkbox"
+                            role="switch"
+                            aria-label={`is_deleted for ${client.name || client.id}`}
+                            checked={Boolean(client.is_deleted)}
+                            onChange={(event) =>
+                              handleToggle(
+                                client.id,
+                                "is_deleted",
+                                event.target.checked
+                              )
+                            }
+                            className={styles.toggleInput}
+                          />
+                          <div className={styles.toggleSlider}>
+                            <div className={styles.toggleKnob}></div>
+                          </div>
+                        </label>
+                      </td>
+                      <td>
                         {client.attachment && (
                           <button
                             onClick={() =>
@@ -1148,6 +1173,14 @@ const getVisiblePages = () => {
                           <FaEdit />
                         </button>
                         <button
+                          className={`${styles.actionBtn} bg-teal-700 hover:bg-teal-800`}
+                          onClick={() => setChatParticipationClient(client)}
+                          aria-label="Manage Chat Participation"
+                          title="Manage Chat Participation"
+                        >
+                          <FaComments />
+                        </button>
+                        <button
                           className={`${styles.actionBtn} ${styles.delete}`}
                           onClick={() => handleDeleteClick(client)}
                           aria-label="Delete"
@@ -1160,7 +1193,7 @@ const getVisiblePages = () => {
                 })
               ) : (
                 <tr>
-                  <td colSpan="13" className={styles.noData}>
+                  <td colSpan="14" className={styles.noData}>
                     No clients found
                   </td>
                 </tr>
@@ -1269,6 +1302,12 @@ const getVisiblePages = () => {
             client={editClient}
             onClose={() => setEditClient(null)}
             handleRefresh={handleRefresh}
+          />
+        )}
+        {chatParticipationClient && (
+          <ChatParticipationModal
+            client={chatParticipationClient}
+            onClose={() => setChatParticipationClient(null)}
           />
         )}
       </div>

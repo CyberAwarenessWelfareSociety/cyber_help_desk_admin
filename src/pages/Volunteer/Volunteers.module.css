@@ -168,7 +168,7 @@
   flex-wrap: wrap;
 }
 
-.viewBtn, .editBtn, .approveBtn, .rejectBtn, .deleteBtn {
+.viewBtn, .editBtn, .chatBtn, .approveBtn, .rejectBtn, .deleteBtn {
   padding: 8px 14px;
   border: none;
   border-radius: 8px;
@@ -179,6 +179,10 @@
   align-items: center;
   gap: 6px;
 }
+
+.chatBtn { background: #0f766e; color: white; }
+.chatBtn:hover:not(:disabled) { background: #115e59; }
+.chatBtn:disabled { cursor: not-allowed; opacity: 0.5; }
 
 .viewBtn { background: #3b82f6; color: white; }
 .viewBtn:hover { background: #2563eb; }
