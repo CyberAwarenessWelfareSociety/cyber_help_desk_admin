@@ -15,8 +15,14 @@ const ChatParticipationModal = ({ client, onClose }) => {
     if (!client?.id) return;
     setLoading(true);
     try {
+      const { data: reconciliation } = await api.post(
+        `/chat/client/${client.id}/participations/reconcile`,
+      );
       const { data } = await api.get(`/chat/client/${client.id}/participations`);
       setParticipations(data?.data || []);
+      if (reconciliation?.removed > 0) {
+        toast.success(reconciliation.message);
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to load chat list");
     } finally {

@@ -229,7 +229,13 @@ const EditVolunteerModal = ({
         },
       };
 
-      toast.success("Volunteer profile updated successfully!", { id: toastId });
+      const chatAccess = res.data?.chatAccess;
+      const accessSummary = chatAccess
+        ? ` Chat access synced: ${chatAccess.added || 0} added, ${chatAccess.removed || 0} removed.`
+        : "";
+      toast.success(`Volunteer profile updated.${accessSummary}`, {
+        id: toastId,
+      });
 
       if (onSuccess) {
         onSuccess(updated);
@@ -534,7 +540,9 @@ const EditVolunteerModal = ({
                 margin: "0 0 4px 0",
               }}
             >
-              Select which case categories this volunteer is permitted to handle:
+              Access is automatic: selected categories are added to current and
+              future case chats. Removing a category immediately removes those
+              chats from this volunteer.
             </p>
 
             <div className={styles.permissionsGrid}>

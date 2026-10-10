@@ -108,7 +108,7 @@ const Banners = () => {
     if (!fileName) return;
 
     try {
-      await axios.delete("https://qiktrack.com/bucket/delete-multiple/cybercrime", {
+      await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
         data: { filenames: [fileName] },
         headers: { "Content-Type": "application/json" },
       });
@@ -141,7 +141,7 @@ const Banners = () => {
       if (image) {
         const oldFileName = selectedImageData.link?.split("/").pop();
         if (oldFileName) {
-          await axios.delete("https://qiktrack.com/bucket/delete-multiple/cybercrime", {
+          await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
             data: { filenames: [oldFileName] },
             headers: { "Content-Type": "application/json" },
           });

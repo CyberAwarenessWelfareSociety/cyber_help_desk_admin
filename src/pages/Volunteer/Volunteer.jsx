@@ -169,10 +169,12 @@ const GetVolunteers = () => {
 
     if (actionType === "delete") {
       try {
-        await axios.delete(`${API_URL}/volunteer/${pendingId}`, {
+        const response = await axios.delete(`${API_URL}/volunteer/${pendingId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        toast.success("Volunteer deleted successfully!");
+        toast.success(
+          `Volunteer deleted. ${response.data?.removedChatAccess || 0} chat access record(s) removed.`,
+        );
         fetchApplications();
         if (selectedApplication?.id === pendingId) setSelectedApplication(null);
       } catch (err) {
@@ -192,10 +194,13 @@ const GetVolunteers = () => {
     };
 
     try {
-      await axios.put(`${API_URL}/volunteer/${pendingId}`, payload, {
+      const response = await axios.put(`${API_URL}/volunteer/${pendingId}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast.success(`Application ${actionType}d successfully!`);
+      const removed = response.data?.chatAccess?.removed || 0;
+      toast.success(
+        `Application ${actionType}d successfully${removed ? `; ${removed} chat access record(s) removed` : ""}!`,
+      );
       fetchApplications();
       if (selectedApplication?.id === pendingId) setSelectedApplication(null);
     } catch (err) {
@@ -243,14 +248,16 @@ const GetVolunteers = () => {
 
     setIsAssignLoading(true);
     try {
-      await axios.post(`${API_URL}/chat/assign`, {
+      const response = await axios.post(`${API_URL}/chat/assign`, {
         client_id: selectedVolunteerId,
         permissions: selectedPermissions,
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      toast.success(`Volunteer assigned successfully!`);
+      toast.success(
+        `Permissions assigned; ${response.data?.details?.added || 0} current chat(s) added. Future matching chats will be automatic.`,
+      );
       setShowAssignModal(false);
       fetchApplications();
     } catch (err) {
@@ -280,14 +287,16 @@ const GetVolunteers = () => {
 
     setIsRemoveLoading(true);
     try {
-      await axios.post(`${API_URL}/chat/remove-volunteer-from-model`, {
+      const response = await axios.post(`${API_URL}/chat/remove-volunteer-from-model`, {
         client_id: selectedRemoveVolunteerId,
         permissions: selectedRemovePermissions,
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      toast.success(`Volunteer removed successfully!`);
+      toast.success(
+        `Permissions removed; ${response.data?.details?.removed || 0} chat(s) are no longer accessible.`,
+      );
       setShowRemoveModal(false);
       fetchApplications();
     } catch (err) {

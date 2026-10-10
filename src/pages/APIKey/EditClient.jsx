@@ -104,7 +104,7 @@ export default function EditClient({ client, onClose, onSave, handleRefresh }) {
   const deleteOldAttachment = async (filename) => {
     if (!filename) return;
     try {
-      await axios.delete("https://qiktrack.com/bucket/delete-multiple/cybercrime", {
+      await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
         data: { filenames: [filename] },
       });
     } catch (err) {

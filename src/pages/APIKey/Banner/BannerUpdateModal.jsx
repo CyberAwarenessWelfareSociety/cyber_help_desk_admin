@@ -37,7 +37,7 @@
 //       formData.append('files', image);
 
 //       const uploadRes = await axios.post(
-//         'https://qiktrack.com/bucket/upload-multiple/cybercrime',
+//         'http://bucket.cyberawareness.ngo/bucket/upload-multiple/cybercrime',
 //         formData,
 //         {
 //           headers: {

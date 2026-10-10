@@ -215,7 +215,7 @@ const Gallery = () => {
       );
 
       if (removed.length) {
-        await axios.delete("https://qiktrack.com/bucket/delete-multiple/cybercrime", {
+        await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
           data: { filenames: removed.map((u) => u.split("/").pop()).filter(Boolean) },
           headers: { "Content-Type": "application/json" },
         });
@@ -254,7 +254,7 @@ const Gallery = () => {
 
     try {
       if (filenames.length) {
-        await axios.delete("https://qiktrack.com/bucket/delete-multiple/cybercrime", {
+        await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
           data: { filenames },
           headers: { "Content-Type": "application/json" },
         });
