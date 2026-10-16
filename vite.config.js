@@ -16,9 +16,9 @@ export default defineConfig({
     port: 3000, // Explicitly set port to 3000
     proxy: {
       '/api': {
-        target: 'http://localhost:8600',
+        target: 'https://api.cyberawareness.ngo',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },

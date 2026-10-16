@@ -2,9 +2,9 @@ import { useMemo, useRef, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import styles from "./FaceMatching.module.css";
+import { API_BASE_URL } from "../../Utils/api";
 
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8600/api";
+const API_URL = API_BASE_URL;
 
 function getUserRole() {
   try {

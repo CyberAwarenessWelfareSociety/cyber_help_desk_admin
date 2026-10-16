@@ -29,7 +29,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8600/api';
+export const API_BASE_URL = "https://api.cyberawareness.ngo/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,

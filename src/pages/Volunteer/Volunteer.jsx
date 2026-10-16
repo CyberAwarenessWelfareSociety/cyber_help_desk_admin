@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import styles from "./Volunteers.module.css";
 import EditVolunteerModal from "./EditVolunteerModal";
 import ChatParticipationModal from "../../components/ChatParticipationModal/ChatParticipationModal";
+import { API_BASE_URL } from "../../Utils/api";
 import {
   FaEye,
   FaSync,
@@ -19,7 +20,7 @@ import {
   FaComments,
 } from "react-icons/fa";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8600/api";
+const API_URL = API_BASE_URL;
 const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
 const GetVolunteers = () => {

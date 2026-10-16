@@ -21,6 +21,30 @@
   align-items: center;
 }
 
+.fieldLabel {
+  width: 80%;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.optionalText {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.selectInput {
+  width: 80%;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: #111827;
+}
+
 .dropZone {
   width: 80%;
   height: 200px;
@@ -29,7 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
+  margin: 14px 0 20px;
   cursor: pointer;
   background-color: #fafafa;
   text-align: center;

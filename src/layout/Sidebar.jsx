@@ -213,9 +213,9 @@ export function Sidebar({ collapsed, setCollapsed }) {
       ],
     },
     {
-      title: "Banner/Announcement",
+      title: "Advertisement/Announcement",
       items: [
-        { icon: <MdReceiptLong />, label: "Banner", path: "/banners" },
+        { icon: <MdReceiptLong />, label: "Advertisements", path: "/banners" },
         {
           icon: <MdAnnouncement />,
           label: "Announcement",

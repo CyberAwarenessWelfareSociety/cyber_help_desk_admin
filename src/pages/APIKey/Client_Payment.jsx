@@ -6,8 +6,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { API_BASE_URL } from "../../Utils/api";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8600/api";
+const API_URL = API_BASE_URL;
 
 const ClientPaymentDetailsModal = ({ isOpen, onClose, payment }) => {
   if (!payment) return null;

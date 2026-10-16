@@ -3,8 +3,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import styles from "./ContentTakedown.module.css";
 import { FaEye, FaTrash, FaSync, FaComments } from "react-icons/fa";
+import { API_BASE_URL } from "../../Utils/api";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8600/api";
+const API_URL = API_BASE_URL;
 
 const TYPE_LABELS = {
   NUDE_IMAGE: "Remove Nude Image",

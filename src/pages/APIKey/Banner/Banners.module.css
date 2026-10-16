@@ -14,7 +14,13 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: #6b7280;
+  font-size: 13px;
 }
 
 .addButton {
@@ -70,6 +76,30 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+}
+
+.placementBadge {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.82);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.linkBadge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.9);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .bannerButton {

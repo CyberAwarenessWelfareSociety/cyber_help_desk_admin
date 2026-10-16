@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Insurance.module.css";
+import { API_BASE_URL } from "../../Utils/api";
 
-const API = (import.meta.env.VITE_API_URL || "http://localhost:8600/api") + "/insurance";
+const API = `${API_BASE_URL}/insurance`;
 
 export default function InsuranceCRUD() {
   const [list, setList] = useState([]);

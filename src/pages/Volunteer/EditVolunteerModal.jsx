@@ -15,10 +15,10 @@ import {
   FaIdBadge,
 } from "react-icons/fa";
 import { uploadToBucket } from "../../Utils/upload";
+import { API_BASE_URL } from "../../Utils/api";
 import styles from "./EditVolunteerModal.module.css";
 
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8600/api";
+const API_URL = API_BASE_URL;
 
 const DEFAULT_MODELS = [
   { value: "Blackmail", label: "Blackmail" },

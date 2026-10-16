@@ -11,6 +11,7 @@ import {
   FaCopy,
   FaCheck,
   FaComments,
+  FaUserShield,
 } from "react-icons/fa";
 import Table from "../../components/Table/Table";
 import { useEffect, useState } from "react";
@@ -409,6 +410,8 @@ const GetClients = () => {
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [copiedItem, setCopiedItem] = useState(null);
   const [chatParticipationClient, setChatParticipationClient] = useState(null);
+  const [clientToPromote, setClientToPromote] = useState(null);
+  const [isPromotingVolunteer, setIsPromotingVolunteer] = useState(false);
 
   const handleCopy = (text, label = "ID") => {
     if (!text) return;
@@ -500,7 +503,7 @@ const GetClients = () => {
           normalizedClients = normalizedClients.filter(isGuestClient);
         } else if (filter.has_device_id === "no") {
           normalizedClients = normalizedClients.filter(
-            (c) => !Boolean(c.device_id || c.deviceId) && !isGuestClient(c)
+            (c) => !(c.device_id || c.deviceId) && !isGuestClient(c)
           );
         }
       }
@@ -650,6 +653,35 @@ const getVisiblePages = () => {
   const handleRechargeClick = (clientId) => {
     setSelectedClientId(clientId);
     setIsRechargeModalOpen(true);
+  };
+
+  const handlePromoteToVolunteer = async () => {
+    if (!clientToPromote?.id || isPromotingVolunteer) return;
+
+    setIsPromotingVolunteer(true);
+    const toastId = toast.loading("Creating official volunteer profile...");
+    try {
+      const response = await api.post(
+        `/volunteer/promote/${clientToPromote.id}`,
+      );
+      toast.success(
+        response.data?.message || "Client is now an official volunteer",
+        { id: toastId },
+      );
+      setClientToPromote(null);
+      await fetchClients();
+    } catch (error) {
+      console.error(
+        "Error promoting client to volunteer:",
+        error.response?.data || error.message,
+      );
+      toast.error(
+        error.response?.data?.message || "Failed to make client an official volunteer",
+        { id: toastId },
+      );
+    } finally {
+      setIsPromotingVolunteer(false);
+    }
   };
 
   const filterConfig = [
@@ -1180,6 +1212,16 @@ const getVisiblePages = () => {
                         >
                           <FaComments />
                         </button>
+                        {!client.VolunteerProfile?.is_approved && (
+                          <button
+                            className={`${styles.actionBtn} bg-amber-600 hover:bg-amber-700`}
+                            onClick={() => setClientToPromote(client)}
+                            aria-label="Make Official Volunteer"
+                            title="Make Official Volunteer"
+                          >
+                            <FaUserShield />
+                          </button>
+                        )}
                         <button
                           className={`${styles.actionBtn} ${styles.delete}`}
                           onClick={() => handleDeleteClick(client)}
@@ -1310,6 +1352,41 @@ const getVisiblePages = () => {
             onClose={() => setChatParticipationClient(null)}
           />
         )}
+        <Dialog
+          open={Boolean(clientToPromote)}
+          onOpenChange={(open) => {
+            if (!open && !isPromotingVolunteer) setClientToPromote(null);
+          }}
+        >
+          <DialogContent className={`${styles.card} sm:max-w-[480px] p-5`}>
+            <DialogHeader>
+              <DialogTitle className="text-black">Make Official Volunteer</DialogTitle>
+              <DialogDescription className="text-gray-600">
+                This will create and approve an official volunteer profile for{" "}
+                <strong>{clientToPromote?.name || "this client"}</strong>, assign a
+                CAWS volunteer ID, and activate the account.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex justify-end gap-2 pt-3">
+              <Button
+                variant="outline"
+                onClick={() => setClientToPromote(null)}
+                disabled={isPromotingVolunteer}
+                className={styles.actionBtn}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handlePromoteToVolunteer}
+                disabled={isPromotingVolunteer}
+                className={`${styles.actionBtn} bg-amber-600 hover:bg-amber-700`}
+              >
+                <FaUserShield />
+                {isPromotingVolunteer ? "Promoting..." : "Make Official Volunteer"}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

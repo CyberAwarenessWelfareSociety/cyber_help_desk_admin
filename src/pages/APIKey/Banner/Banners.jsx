@@ -1,5 +1,5 @@
 // Banners.js
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Banners.module.css";
 import BannerModal from "./BannerModal";
 import api from "../../../Utils/api";
@@ -20,19 +20,19 @@ const Banners = () => {
 
   const totalPages = Math.ceil(total / limit);
 
-  const getBanner = async () => {
+  const getBanner = useCallback(async () => {
     try {
       const response = await api.get(`/get-Banner?limit=${limit}&page=${page}`);
       setBanners(response.data?.data || []);
       setTotal(response.data?.total || 0);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong while fetching banners.");
     }
-  };
+  }, [page]);
 
   useEffect(() => {
     getBanner();
-  }, [page]);
+  }, [getBanner]);
 
   // ✅ Handles ALL possible upload response shapes:
   // A) { files: [{ url }] }
@@ -71,7 +71,7 @@ const Banners = () => {
     return imageUrl;
   };
 
-  const handleAddBanner = async ({ image, display_order }) => {
+  const handleAddBanner = async ({ image, display_order, placement, target_url }) => {
     if (!image) {
       toast.error("Please select an image");
       return;
@@ -84,12 +84,13 @@ const Banners = () => {
 
       const payload = {
         link: imageUrl,
-        // ✅ your UI sends display_order but you were ignoring it; keeping your old behavior:
-        display_order: banners.length + 1 || 1,
+        display_order: Number(display_order) || banners.length + 1 || 1,
+        placement,
+        target_url,
       };
 
       await api.post("/create-Banner", payload);
-      toast.success("Banner created");
+      toast.success("Advertisement uploaded");
 
       await getBanner();
       setIsModalOpen(false);
@@ -127,7 +128,7 @@ const Banners = () => {
     setIsModalOpen(true);
   };
 
-  const handleUpdateBanner = async ({ image, display_order }) => {
+  const handleUpdateBanner = async ({ image, display_order, placement, target_url }) => {
     if (!selectedImageData) {
       toast.error("No image selected for update");
       return;
@@ -153,10 +154,12 @@ const Banners = () => {
       const payload = {
         link: newImageUrl,
         display_order: Number(display_order) || selectedImageData.display_order || 1,
+        placement,
+        target_url,
       };
 
       await api.put(`/update-banner/${selectedImageData.id}`, payload);
-      toast.success("Banner updated");
+      toast.success("Advertisement updated");
 
       await getBanner();
       setIsModalOpen(false);
@@ -224,9 +227,14 @@ const Banners = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Banners</h2>
+        <div>
+          <h2 className={styles.title}>Home Advertisements</h2>
+          <p className={styles.subtitle}>
+            Upload separate advertisements for the Cyber Help Desk Team and District Safety Force home sections.
+          </p>
+        </div>
         <button className={styles.addButton} onClick={() => handleOpenModal("add")}>
-          <FaPlus /> Add Banner
+          <FaPlus /> Upload Advertisement
         </button>
       </div>
 
@@ -234,7 +242,17 @@ const Banners = () => {
         {banners.length > 0 ? (
           banners.map((img) => (
             <div key={img.id} className={styles.bannerCard}>
-              <img src={img.link} alt="Banner" className={styles.bannerImage} />
+              <img src={img.link} alt="Advertisement" className={styles.bannerImage} />
+              <span className={styles.placementBadge}>
+                {img.placement === "DISTRICT_SAFETY_FORCE"
+                  ? "District Safety Force"
+                  : img.placement === "CYBER_HELP_DESK"
+                    ? "Cyber Help Desk Team"
+                    : "General banner"}
+              </span>
+              {img.target_url && (
+                <span className={styles.linkBadge}>Redirect enabled</span>
+              )}
               <div className={styles.bannerActions}>
                 <button
                   className={`${styles.bannerButton} ${styles.edit}`}
@@ -252,7 +270,7 @@ const Banners = () => {
             </div>
           ))
         ) : (
-          <div className={styles.emptyState}>No banners available.</div>
+          <div className={styles.emptyState}>No advertisements available.</div>
         )}
       </div>
 

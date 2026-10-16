@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existingImage }) => {
   const [image, setImage] = useState(null);
   const [displayOrder, setDisplayOrder] = useState('');
+  const [placement, setPlacement] = useState('CYBER_HELP_DESK');
+  const [targetUrl, setTargetUrl] = useState('');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -15,6 +17,8 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
       } else {
         setDisplayOrder('');
       }
+      setPlacement(existingImage?.placement || 'CYBER_HELP_DESK');
+      setTargetUrl(existingImage?.target_url || '');
       setImage(null); // Reset uploaded image
     }
   }, [isOpen, type, existingImage]);
@@ -37,12 +41,21 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
   };
 
   const handleSubmit = () => {
-    if (!image) {
+    if (type === 'add' && !image) {
       toast.error("Please select an image");
       return;
     }
+    if (targetUrl.trim() && !/^https?:\/\/\S+$/i.test(targetUrl.trim())) {
+      toast.error("Redirect URL must start with http:// or https://");
+      return;
+    }
 
-    onSubmit({ image, display_order: parseInt(displayOrder) || null });
+    onSubmit({
+      image,
+      display_order: parseInt(displayOrder) || null,
+      placement,
+      target_url: targetUrl.trim() || null,
+    });
   };
 
   if (!isOpen) return null;
@@ -50,7 +63,35 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>{type === 'add' ? 'Add Banner' : 'Update Banner'}</h2>
+        <h2>{type === 'add' ? 'Upload Advertisement' : 'Update Advertisement'}</h2>
+
+        <label className={styles.fieldLabel} htmlFor="advertisement-placement">
+          Show advertisement in
+        </label>
+        <select
+          id="advertisement-placement"
+          className={styles.selectInput}
+          value={placement}
+          onChange={(event) => setPlacement(event.target.value)}
+        >
+          <option value="CYBER_HELP_DESK">Cyber Help Desk Team</option>
+          <option value="DISTRICT_SAFETY_FORCE">District Safety Force</option>
+          {existingImage?.placement === 'GENERAL' && (
+            <option value="GENERAL">General banner (legacy)</option>
+          )}
+        </select>
+
+        <label className={styles.fieldLabel} htmlFor="advertisement-target-url">
+          Redirect URL <span className={styles.optionalText}>(optional)</span>
+        </label>
+        <input
+          id="advertisement-target-url"
+          type="url"
+          className={styles.selectInput}
+          value={targetUrl}
+          placeholder="https://example.com"
+          onChange={(event) => setTargetUrl(event.target.value)}
+        />
 
         <div
           className={styles.dropZone}
@@ -95,7 +136,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
             {loading ? (
               <div className={styles.loader}></div>
             ) : (
-              type === 'add' ? 'Upload' : 'Update'
+              type === 'add' ? 'Upload Advertisement' : 'Update'
             )}
           </button>
         </div>
