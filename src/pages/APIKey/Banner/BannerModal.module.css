@@ -12,6 +12,9 @@
 }
 .modal {
   width: 400px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   padding: 20px;
   background: white;
   border-radius: 12px;
@@ -19,6 +22,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.displayOrder {
+  width: 80%;
+  min-height: 42px;
+  margin-bottom: 18px;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
 }
 
 .fieldLabel {

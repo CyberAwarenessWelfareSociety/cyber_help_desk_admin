@@ -4,8 +4,8 @@ import styles from "./Banners.module.css";
 import BannerModal from "./BannerModal";
 import api from "../../../Utils/api";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { FaPlus, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { BANNER_COUNTRIES, countryLabel } from "./bannerCountries";
 
 const Banners = () => {
   const [banners, setBanners] = useState([]);
@@ -17,61 +17,39 @@ const Banners = () => {
   const [modalType, setModalType] = useState("add");
   const [loading, setLoading] = useState(false);
   const [selectedImageData, setSelectedImageData] = useState(null);
+  const [countryFilter, setCountryFilter] = useState("ALL");
 
   const totalPages = Math.ceil(total / limit);
 
   const getBanner = useCallback(async () => {
     try {
-      const response = await api.get(`/get-Banner?limit=${limit}&page=${page}`);
+      const params = { limit, page };
+      if (countryFilter !== "ALL") params.country_code = countryFilter;
+      const response = await api.get("/get-banner", { params });
       setBanners(response.data?.data || []);
       setTotal(response.data?.total || 0);
     } catch {
       toast.error("Something went wrong while fetching banners.");
     }
-  }, [page]);
+  }, [countryFilter, page]);
 
   useEffect(() => {
     getBanner();
   }, [getBanner]);
 
-  // ✅ Handles ALL possible upload response shapes:
-  // A) { files: [{ url }] }
-  // B) { file: { url } }
-  // C) { url: "..." }
-  // D) [{ url: "..." }]
-  const extractUploadedUrl = (data) => {
-    if (!data) return null;
-
-    if (Array.isArray(data?.files) && data.files[0]?.url) return data.files[0].url;
-    if (data?.file?.url) return data.file.url;
-    if (typeof data?.url === "string") return data.url;
-
-    if (Array.isArray(data) && data[0]?.url) return data[0].url;
-
-    return null;
-  };
-
-  const uploadSingleImage = async (imageFile) => {
+  const uploadBannerImage = async (image) => {
     const formData = new FormData();
-    formData.append("file", imageFile);
-
-    const uploadRes = await axios.post(
-      "https://bucket.cyberawareness.ngo/bucket/upload/cybercrime",
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-
-    const imageUrl = extractUploadedUrl(uploadRes?.data);
-
-    if (!imageUrl) {
-      console.log("Upload response:", uploadRes?.data);
-      throw new Error("Failed to get image URL from upload response");
-    }
-
+    formData.append("file", image);
+    const response = await api.post("/banner/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    const data = response?.data;
+    const imageUrl = data?.files?.[0]?.url || data?.file?.url || data?.url || data?.data?.url || (Array.isArray(data) ? data[0]?.url : null);
+    if (!imageUrl) throw new Error("Upload completed but the image URL was missing");
     return imageUrl;
   };
 
-  const handleAddBanner = async ({ image, display_order, placement, target_url }) => {
+  const handleAddBanner = async ({ image, display_order, placement, target_url, country_code }) => {
     if (!image) {
       toast.error("Please select an image");
       return;
@@ -80,16 +58,17 @@ const Banners = () => {
     setLoading(true);
 
     try {
-      const imageUrl = await uploadSingleImage(image);
+      const imageUrl = await uploadBannerImage(image);
 
       const payload = {
         link: imageUrl,
         display_order: Number(display_order) || banners.length + 1 || 1,
         placement,
         target_url,
+        country_code,
       };
 
-      await api.post("/create-Banner", payload);
+      await api.post("/create-banner", payload);
       toast.success("Advertisement uploaded");
 
       await getBanner();
@@ -104,21 +83,17 @@ const Banners = () => {
     }
   };
 
-  const handleDeleteFromBucketAndDB = async (_, img) => {
-    const fileName = img?.link?.split("/").pop();
-    if (!fileName) return;
-
+  const handleDelete = async (img) => {
+    if (!window.confirm(`Delete this ${countryLabel(img.country_code)} advertisement?`)) return;
+    setLoading(true);
     try {
-      await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
-        data: { filenames: [fileName] },
-        headers: { "Content-Type": "application/json" },
-      });
-
       await api.delete(`/delete-banner/${img.id}`);
-      toast.success("Banner deleted");
+      toast.success("Advertisement deleted");
       await getBanner();
     } catch (error) {
-      toast.error(error?.message || "Failed to delete banner");
+      toast.error(error?.response?.data?.message || error?.message || "Failed to delete advertisement");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,7 +103,7 @@ const Banners = () => {
     setIsModalOpen(true);
   };
 
-  const handleUpdateBanner = async ({ image, display_order, placement, target_url }) => {
+  const handleUpdateBanner = async ({ image, display_order, placement, target_url, country_code }) => {
     if (!selectedImageData) {
       toast.error("No image selected for update");
       return;
@@ -138,17 +113,10 @@ const Banners = () => {
     let newImageUrl = selectedImageData.link;
 
     try {
-      // ✅ If user selected a new image, delete old one then upload new one
+      // Upload first. The backend removes the replaced bucket object only after
+      // the database update succeeds.
       if (image) {
-        const oldFileName = selectedImageData.link?.split("/").pop();
-        if (oldFileName) {
-          await axios.delete("http://bucket.cyberawareness.ngo/bucket/delete-multiple/cybercrime", {
-            data: { filenames: [oldFileName] },
-            headers: { "Content-Type": "application/json" },
-          });
-        }
-
-        newImageUrl = await uploadSingleImage(image);
+        newImageUrl = await uploadBannerImage(image);
       }
 
       const payload = {
@@ -156,6 +124,7 @@ const Banners = () => {
         display_order: Number(display_order) || selectedImageData.display_order || 1,
         placement,
         target_url,
+        country_code,
       };
 
       await api.put(`/update-banner/${selectedImageData.id}`, payload);
@@ -238,6 +207,23 @@ const Banners = () => {
         </button>
       </div>
 
+      <div className={styles.filters}>
+        <label htmlFor="banner-country-filter">Country</label>
+        <select
+          id="banner-country-filter"
+          value={countryFilter}
+          onChange={(event) => { setCountryFilter(event.target.value); setPage(1); }}
+        >
+          <option value="ALL">All countries</option>
+          <option value="GLOBAL">Global only</option>
+          {BANNER_COUNTRIES.map((country) => (
+            <option key={country.code} value={country.code}>
+              {country.name} ({country.code})
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className={styles.grid}>
         {banners.length > 0 ? (
           banners.map((img) => (
@@ -250,6 +236,7 @@ const Banners = () => {
                     ? "Cyber Help Desk Team"
                     : "General banner"}
               </span>
+              <span className={styles.countryBadge}>{countryLabel(img.country_code)}</span>
               {img.target_url && (
                 <span className={styles.linkBadge}>Redirect enabled</span>
               )}
@@ -262,7 +249,8 @@ const Banners = () => {
                 </button>
                 <button
                   className={`${styles.bannerButton} ${styles.delete}`}
-                  onClick={() => handleDeleteFromBucketAndDB("delete", img)}
+                  onClick={() => handleDelete(img)}
+                  disabled={loading}
                 >
                   <FaTrashAlt />
                 </button>

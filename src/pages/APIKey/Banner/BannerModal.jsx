@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './BannerModal.module.css';
 import toast from 'react-hot-toast';
+import { BANNER_COUNTRIES } from './bannerCountries';
 
 const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existingImage }) => {
   const [image, setImage] = useState(null);
   const [displayOrder, setDisplayOrder] = useState('');
   const [placement, setPlacement] = useState('CYBER_HELP_DESK');
   const [targetUrl, setTargetUrl] = useState('');
+  const [countryCode, setCountryCode] = useState('GLOBAL');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -19,6 +21,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
       }
       setPlacement(existingImage?.placement || 'CYBER_HELP_DESK');
       setTargetUrl(existingImage?.target_url || '');
+      setCountryCode(existingImage?.country_code || 'GLOBAL');
       setImage(null); // Reset uploaded image
     }
   }, [isOpen, type, existingImage]);
@@ -55,6 +58,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
       display_order: parseInt(displayOrder) || null,
       placement,
       target_url: targetUrl.trim() || null,
+      country_code: countryCode === 'GLOBAL' ? null : countryCode,
     });
   };
 
@@ -79,6 +83,23 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
           {existingImage?.placement === 'GENERAL' && (
             <option value="GENERAL">General banner (legacy)</option>
           )}
+        </select>
+
+        <label className={styles.fieldLabel} htmlFor="advertisement-country">
+          Audience country
+        </label>
+        <select
+          id="advertisement-country"
+          className={styles.selectInput}
+          value={countryCode}
+          onChange={(event) => setCountryCode(event.target.value)}
+        >
+          <option value="GLOBAL">Global — all countries</option>
+          {BANNER_COUNTRIES.map((country) => (
+            <option key={country.code} value={country.code}>
+              {country.name} ({country.code})
+            </option>
+          ))}
         </select>
 
         <label className={styles.fieldLabel} htmlFor="advertisement-target-url">
