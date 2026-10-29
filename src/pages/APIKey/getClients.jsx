@@ -464,6 +464,8 @@ const GetClients = () => {
         aadhar_access:
           client.aadhar_access === "true" || client.aadhar_access === true,
         pan_access: client.pan_access === "true" || client.pan_access === true,
+        mother_rc_access:
+          client.mother_rc_access === "true" || client.mother_rc_access === true,
       }));
 
       // Client-side fallback filter for GUEST, VOLUNTEER, device_id, and country

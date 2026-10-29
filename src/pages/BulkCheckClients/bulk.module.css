@@ -229,9 +229,28 @@
   font-size: 1.85rem;
   font-weight: 700;
   text-align: center;
-  padding: 2rem 2rem 1.25rem;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 0;
   margin: 0;
+}
+
+.modalHero {
+  text-align: center;
+  padding: 2rem 2rem 1.35rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.modalHero p { margin: 0.5rem 0 0; color: #64748b; }
+
+.modalHeroIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 0.8rem;
+  color: #059669;
+  background: #d1fae5;
+  font-size: 1.45rem;
 }
 
 .clientInfo {
@@ -241,6 +260,8 @@
   color: #1f2937;
   border-bottom: 1px solid #f3f4f6;
 }
+
+.clientInfo span { color: #64748b; display: block; margin-top: 0.3rem; }
 
 .formGrid {
   padding: 2rem;
@@ -274,6 +295,52 @@
   border-color: #10b981;
   box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
 }
+
+.durationOptions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+
+.durationOption {
+  padding: 0.75rem 0.45rem;
+  border: 1px solid #dbe3ec;
+  border-radius: 9px;
+  background: #fff;
+  color: #475569;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.durationOptionActive { color: #047857; border-color: #10b981; background: #ecfdf5; }
+
+.adminGrantNote {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  color: #475569;
+  background: #f8fafc;
+  font-size: 0.9rem;
+}
+
+.statusCell { display: flex; align-items: center; gap: 10px; }
+.statusBadge { display: inline-flex; border-radius: 999px; padding: 4px 9px; font-size: 12px; font-weight: 700; }
+.statusActive { color: #047857; background: #d1fae5; }
+.statusInactive { color: #991b1b; background: #fee2e2; }
+
+.quickRenewActions { display: flex; gap: 6px; white-space: nowrap; }
+.quickRenewActions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #a7f3d0;
+  border-radius: 7px;
+  padding: 6px 8px;
+  color: #047857;
+  background: #ecfdf5;
+  font-weight: 700;
+  cursor: pointer;
+}
+.quickRenewActions button:hover { background: #d1fae5; }
+.quickRenewActions button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .modalActions {
   padding: 1.5rem 2rem 2rem;
@@ -407,6 +474,10 @@
 
 .toggleInput:checked + .toggleSlider:before {
   transform: translateX(24px);
+}
+
+@media (max-width: 640px) {
+  .durationOptions { grid-template-columns: repeat(2, 1fr); }
 }
 
 .toggleWrapper:hover {

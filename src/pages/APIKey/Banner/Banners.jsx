@@ -7,6 +7,17 @@ import toast from "react-hot-toast";
 import { FaPlus, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { BANNER_COUNTRIES, countryLabel } from "./bannerCountries";
 
+const platformLabel = (platform) => {
+  const labels = {
+    ALL: "All devices",
+    IOS: "iOS",
+    ANDROID: "Android",
+    WEB: "Web",
+  };
+
+  return labels[platform] || labels.ALL;
+};
+
 const Banners = () => {
   const [banners, setBanners] = useState([]);
   const [total, setTotal] = useState(0);
@@ -49,7 +60,7 @@ const Banners = () => {
     return imageUrl;
   };
 
-  const handleAddBanner = async ({ image, display_order, placement, target_url, country_code }) => {
+  const handleAddBanner = async ({ image, display_order, placement, platform, target_url, country_code }) => {
     if (!image) {
       toast.error("Please select an image");
       return;
@@ -64,6 +75,7 @@ const Banners = () => {
         link: imageUrl,
         display_order: Number(display_order) || banners.length + 1 || 1,
         placement,
+        platform,
         target_url,
         country_code,
       };
@@ -103,7 +115,7 @@ const Banners = () => {
     setIsModalOpen(true);
   };
 
-  const handleUpdateBanner = async ({ image, display_order, placement, target_url, country_code }) => {
+  const handleUpdateBanner = async ({ image, display_order, placement, platform, target_url, country_code }) => {
     if (!selectedImageData) {
       toast.error("No image selected for update");
       return;
@@ -123,6 +135,7 @@ const Banners = () => {
         link: newImageUrl,
         display_order: Number(display_order) || selectedImageData.display_order || 1,
         placement,
+        platform,
         target_url,
         country_code,
       };
@@ -237,6 +250,7 @@ const Banners = () => {
                     : "General banner"}
               </span>
               <span className={styles.countryBadge}>{countryLabel(img.country_code)}</span>
+              <span className={styles.platformBadge}>{platformLabel(img.platform)}</span>
               {img.target_url && (
                 <span className={styles.linkBadge}>Redirect enabled</span>
               )}

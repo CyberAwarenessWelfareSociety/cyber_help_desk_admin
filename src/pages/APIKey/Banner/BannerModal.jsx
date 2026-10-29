@@ -7,6 +7,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
   const [image, setImage] = useState(null);
   const [displayOrder, setDisplayOrder] = useState('');
   const [placement, setPlacement] = useState('CYBER_HELP_DESK');
+  const [platform, setPlatform] = useState('ALL');
   const [targetUrl, setTargetUrl] = useState('');
   const [countryCode, setCountryCode] = useState('GLOBAL');
   const inputRef = useRef(null);
@@ -20,6 +21,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
         setDisplayOrder('');
       }
       setPlacement(existingImage?.placement || 'CYBER_HELP_DESK');
+      setPlatform(existingImage?.platform || 'ALL');
       setTargetUrl(existingImage?.target_url || '');
       setCountryCode(existingImage?.country_code || 'GLOBAL');
       setImage(null); // Reset uploaded image
@@ -57,6 +59,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
       image,
       display_order: parseInt(displayOrder) || null,
       placement,
+      platform,
       target_url: targetUrl.trim() || null,
       country_code: countryCode === 'GLOBAL' ? null : countryCode,
     });
@@ -83,6 +86,21 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
           {existingImage?.placement === 'GENERAL' && (
             <option value="GENERAL">General banner (legacy)</option>
           )}
+        </select>
+
+        <label className={styles.fieldLabel} htmlFor="advertisement-platform">
+          Target device
+        </label>
+        <select
+          id="advertisement-platform"
+          className={styles.selectInput}
+          value={platform}
+          onChange={(event) => setPlatform(event.target.value)}
+        >
+          <option value="ALL">All devices</option>
+          <option value="IOS">iOS</option>
+          <option value="ANDROID">Android</option>
+          <option value="WEB">Web</option>
         </select>
 
         <label className={styles.fieldLabel} htmlFor="advertisement-country">

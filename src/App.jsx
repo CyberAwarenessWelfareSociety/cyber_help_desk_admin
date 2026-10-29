@@ -118,7 +118,10 @@ function App() {
               path="/unclaimed-vehicle"
               element={<UnclaimedSeizedVehicles />}
             />
+            <Route element={<PrivateRoute allowedRoles={[ROLES.ADMIN]} />}>
+              <Route path="/bulkcheck" element={<BulkCheckClients />} />
               <Route path="/bulkcheck-logs" element={<BulkCheckLogs />} />
+            </Route>
             <Route path="/accident-vehicle" element={<AccidentVehicle />} />
             <Route path="/complain" element={<Complain />} />
             <Route path="/banners" element={<Banners />} />
@@ -127,7 +130,6 @@ function App() {
             <Route path="/wallet-balance" element={<WalletBalance />} />
             <Route path="/announcement" element={<Announcement />} />
             <Route path="/get-all-clients" element={<GetClients />} />
-              <Route path="/bulkcheck" element={<BulkCheckClients />} />
             <Route path="/client-wallet" element={<Client_Wallet />} />
             <Route path="/client-payment" element={<ClientPayment />} />
             <Route path="/cyberfraud" element={<GetCyberFrauds />} />

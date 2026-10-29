@@ -1,8 +1,7 @@
 import styles from "./bulk.module.css";
 import {
-  FaSearch,
   FaSync,
-  FaCalendarAlt,
+  FaClock,
 } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -75,6 +74,20 @@ const BulkCheckLogs = () => {
     setPagination((prev) => ({ ...prev, pageSize: newSize, page: 1 }));
   };
 
+  const renewAccess = async (clientId, days) => {
+    try {
+      await api.post("/police/admin/grant-bulk-check-access", {
+        client_id: clientId,
+        duration_days: days,
+        purchase_amount: 0,
+      });
+      toast.success(`${days === 30 ? "1 month" : "3 months"} added without payment`);
+      fetchLogs();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Could not renew subscription");
+    }
+  };
+
   const formatDate = (dateStr) => {
     if (!dateStr) return "—";
     return new Date(dateStr).toLocaleDateString("en-IN", {
@@ -125,13 +138,15 @@ const BulkCheckLogs = () => {
                   <th>Hit Count</th>
                   <th>Last Hit At</th>
                   <th>Purchase Amount (₹)</th>
+                  <th>Subscription</th>
+                  <th>Admin Renewal</th>
                   <th>Created At</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="7" className={styles.loadingCell}>
+                    <td colSpan="9" className={styles.loadingCell}>
                       <div className={styles.spinnerContainer}>
                         <div className={styles.customSpinner}></div>
                       </div>
@@ -158,12 +173,27 @@ const BulkCheckLogs = () => {
                       </td>
                       <td>{formatDateTime(log.last_hit_at)}</td>
                       <td>₹{parseFloat(log.purchase_amount || 0).toFixed(2)}</td>
+                      <td>
+                        {log.Client?.bulk_check_subscription_ends_at
+                          ? formatDate(log.Client.bulk_check_subscription_ends_at)
+                          : "—"}
+                      </td>
+                      <td>
+                        <div className={styles.quickRenewActions}>
+                          <button onClick={() => renewAccess(log.Client?.id, 30)} disabled={!log.Client?.id}>
+                            <FaClock /> +1 month
+                          </button>
+                          <button onClick={() => renewAccess(log.Client?.id, 90)} disabled={!log.Client?.id}>
+                            +3 months
+                          </button>
+                        </div>
+                      </td>
                       <td>{formatDateTime(log.createdAt)}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="7" className={styles.noData}>
+                    <td colSpan="9" className={styles.noData}>
                       No bulk check logs found
                     </td>
                   </tr>

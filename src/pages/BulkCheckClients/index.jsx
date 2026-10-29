@@ -1,26 +1,31 @@
 import styles from "./bulk.module.css";
 import {
-  FaSearch,
   FaSync,
   FaWallet,
+  FaShieldAlt,
+  FaClock,
 } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import api from "../../Utils/api";
 import Table from "@/components/Table/Table";
 
+const hasActiveSubscription = (client) =>
+  !!client?.bulk_check_access &&
+  !!client?.bulk_check_subscription_ends_at &&
+  new Date(client.bulk_check_subscription_ends_at) > new Date();
+
 const GrantAccessModal = ({ isOpen, onClose, client, fetchClients }) => {
-  // ... (Your existing GrantAccessModal code - unchanged)
   const [form, setForm] = useState({
     client_id: "",
     duration_days: 30,
-    purchase_amount: 199,
+    purchase_amount: 0,
   });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (client) {
-      setForm((prev) => ({ ...prev, client_id: client.id }));
+      setForm({ client_id: client.id, duration_days: 30, purchase_amount: 0 });
     }
   }, [client]);
 
@@ -28,15 +33,13 @@ const GrantAccessModal = ({ isOpen, onClose, client, fetchClients }) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: name === "duration_days" || name === "purchase_amount"
-        ? Number(value) || 0
-        : value,
+      [name]: name === "duration_days" ? Number(value) || 0 : value,
     }));
   };
 
   const handleSubmit = async () => {
-    if (!form.duration_days || form.purchase_amount <= 0) {
-      toast.error("Please fill all fields correctly");
+    if (!form.duration_days) {
+      toast.error("Please select a valid subscription duration");
       return;
     }
 
@@ -51,7 +54,7 @@ const GrantAccessModal = ({ isOpen, onClose, client, fetchClients }) => {
         },
       });
 
-      toast.success("Bulk Check access granted successfully!");
+      toast.success("Subscription granted without payment");
       fetchClients();
       onClose();
     } catch (error) {
@@ -67,15 +70,35 @@ const GrantAccessModal = ({ isOpen, onClose, client, fetchClients }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContainer}>
-        <h2 className={styles.modalTitle}>Grant Bulk Check Access</h2>
+        <div className={styles.modalHero}>
+          <div className={styles.modalHeroIcon}><FaShieldAlt /></div>
+          <h2 className={styles.modalTitle}>
+            {client.bulk_check_access ? "Renew Subscription" : "Grant Bulk Check Access"}
+          </h2>
+          <p>Admin grant — no Razorpay payment is required.</p>
+        </div>
 
         <div className={styles.clientInfo}>
-          <strong>Client:</strong> {client.name} ({client.phone})
+          <div><strong>{client.name}</strong> · {client.client_type}</div>
+          <span>{client.phone}</span>
         </div>
 
         <div className={styles.formGrid}>
           <div className={styles.formGroup}>
-            <label>Duration (Days)</label>
+            <label>Subscription duration</label>
+            <div className={styles.durationOptions}>
+              {[30, 90, 180, 365].map((days) => (
+                <button
+                  type="button"
+                  key={days}
+                  className={`${styles.durationOption} ${form.duration_days === days ? styles.durationOptionActive : ""}`}
+                  onClick={() => setForm((prev) => ({ ...prev, duration_days: days }))}
+                >
+                  {days === 30 ? "1 month" : days === 90 ? "3 months" : `${days} days`}
+                </button>
+              ))}
+            </div>
+            <label>Custom days</label>
             <input
               type="number"
               name="duration_days"
@@ -86,16 +109,8 @@ const GrantAccessModal = ({ isOpen, onClose, client, fetchClients }) => {
             />
           </div>
 
-          <div className={styles.formGroup}>
-            <label>Purchase Amount (₹)</label>
-            <input
-              type="number"
-              name="purchase_amount"
-              value={form.purchase_amount}
-              onChange={handleChange}
-              className={styles.modalInput}
-              min="1"
-            />
+          <div className={styles.adminGrantNote}>
+            <FaClock /> Active time is added after the current expiry when renewing early.
           </div>
         </div>
 
@@ -104,7 +119,7 @@ const GrantAccessModal = ({ isOpen, onClose, client, fetchClients }) => {
             Cancel
           </button>
           <button onClick={handleSubmit} className={styles.primaryBtn} disabled={loading}>
-            {loading ? "Granting Access..." : "Grant Access"}
+            {loading ? "Saving..." : client.bulk_check_access ? "Renew Access" : "Grant Access"}
           </button>
         </div>
       </div>
@@ -171,7 +186,7 @@ const BulkCheckClients = () => {
   const toggleBulkAccess = async (client) => {
     try {
       const token = localStorage.getItem("token");
-      const newStatus = !client.bulk_check_access;
+      const newStatus = !hasActiveSubscription(client);
 
       if (newStatus) {
         // Grant 30-day subscription with a real end date
@@ -180,7 +195,7 @@ const BulkCheckClients = () => {
           {
             client_id: client.id,
             duration_days: 30,
-            purchase_amount: 199,
+            purchase_amount: 0,
           },
           {
             headers: {
@@ -189,7 +204,7 @@ const BulkCheckClients = () => {
             },
           },
         );
-        toast.success("Bulk Check access enabled for 30 days");
+        toast.success("Bulk Check access granted for 30 days without payment");
       } else {
         // Revoke: clear access + end date
         await api.put(
@@ -257,7 +272,7 @@ const BulkCheckClients = () => {
                   <th>Phone</th>
                   <th>Email</th>
                   <th>Client Type</th>
-                  <th>Bulk Check Access</th>
+                  <th>Status</th>
                   <th>Subscription Ends</th>
                   <th>Actions</th>
                 </tr>
@@ -279,24 +294,28 @@ const BulkCheckClients = () => {
                       <td>{client.email}</td>
                       <td>{client.client_type}</td>
 
-                      {/* ==================== TOGGLE ==================== */}
                       <td>
-                        <label className={styles.toggleWrapper}>
+                        <div className={styles.statusCell}>
+                          <span className={`${styles.statusBadge} ${hasActiveSubscription(client) ? styles.statusActive : styles.statusInactive}`}>
+                            {hasActiveSubscription(client) ? "Active" : "Inactive"}
+                          </span>
+                          <label className={styles.toggleWrapper} title="Grant 30 days or revoke access">
                           <input
                             type="checkbox"
-                            checked={!!client.bulk_check_access}
+                            checked={hasActiveSubscription(client)}
                             onChange={() => toggleBulkAccess(client)}
                             className={styles.toggleInput}
                           />
                           <div className={styles.toggleSlider}>
                             <div className={styles.toggleKnob}></div>
                           </div>
-                        </label>
+                          </label>
+                        </div>
                       </td>
 
                       <td>
                         {client.bulk_check_subscription_ends_at
-                          ? new Date(client.bulk_check_subscription_ends_at).toLocaleDateString()
+                          ? new Date(client.bulk_check_subscription_ends_at).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })
                           : "—"}
                       </td>
 
@@ -305,7 +324,7 @@ const BulkCheckClients = () => {
                           className={`${styles.actionBtn} ${styles.grantAccessBtn}`}
                           onClick={() => handleGrantAccess(client)}
                         >
-                          <FaWallet /> Grant Access
+                          <FaWallet /> {client.bulk_check_access ? "Renew" : "Grant Access"}
                         </button>
                       </td>
                     </tr>

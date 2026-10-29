@@ -16,6 +16,8 @@ export default function AccessControlModal({ client, onClose, handleRefresh }) {
       client.mobile_access !== undefined ? client.mobile_access : true,
     vehicle_access:
       client.vehicle_access !== undefined ? client.vehicle_access : true,
+    mother_rc_access:
+      client.mother_rc_access !== undefined ? client.mother_rc_access : false,
     missing_vehicle_access:
       client.missing_vehicle_access !== undefined
         ? client.missing_vehicle_access
@@ -102,6 +104,7 @@ isteacher:
         pan_access: form.pan_access,
         mobile_access: form.mobile_access,
         vehicle_access: form.vehicle_access,
+        mother_rc_access: form.mother_rc_access,
         missing_vehicle_access: form.missing_vehicle_access,
         unclaimed_vehicle_access: form.unclaimed_vehicle_access,
         accident_report_access: form.accident_report_access,
@@ -251,6 +254,25 @@ isteacher:
                   <div className={modalStyles.toggleKnob}></div>
                 </div>
               </label>
+            </label>
+
+            <label>
+              Mother RC Access
+              <label className={modalStyles.toggleWrapper}>
+                <input
+                  type="checkbox"
+                  name="mother_rc_access"
+                  checked={form.mother_rc_access}
+                  onChange={handleChange}
+                  className={modalStyles.toggleInput}
+                />
+                <div className={modalStyles.toggleSlider}>
+                  <div className={modalStyles.toggleKnob}></div>
+                </div>
+              </label>
+              <span className={modalStyles.helperText}>
+                Allow this client to open and use the Mother RC lookup.
+              </span>
             </label>
 
             <label>
