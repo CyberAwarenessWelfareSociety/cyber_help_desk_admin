@@ -3,11 +3,33 @@ import styles from './BannerModal.module.css';
 import toast from 'react-hot-toast';
 import { BANNER_COUNTRIES } from './bannerCountries';
 
+const DEVICE_OPTIONS = [
+  { value: 'ANDROID', label: 'Android' },
+  { value: 'IOS', label: 'iOS' },
+  { value: 'WEB', label: 'Web' },
+];
+
+const getInitialPlatforms = (banner) => {
+  if (Array.isArray(banner?.platforms)) {
+    return banner.platforms.filter((platform) =>
+      DEVICE_OPTIONS.some((option) => option.value === platform),
+    );
+  }
+
+  const legacyPlatform = String(banner?.platform || 'ALL').toUpperCase();
+  if (legacyPlatform === 'ALL') return DEVICE_OPTIONS.map((option) => option.value);
+
+  return legacyPlatform
+    .split(',')
+    .map((platform) => platform.trim())
+    .filter((platform) => DEVICE_OPTIONS.some((option) => option.value === platform));
+};
+
 const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existingImage }) => {
   const [image, setImage] = useState(null);
   const [displayOrder, setDisplayOrder] = useState('');
   const [placement, setPlacement] = useState('CYBER_HELP_DESK');
-  const [platform, setPlatform] = useState('ALL');
+  const [platforms, setPlatforms] = useState(() => getInitialPlatforms());
   const [targetUrl, setTargetUrl] = useState('');
   const [countryCode, setCountryCode] = useState('GLOBAL');
   const inputRef = useRef(null);
@@ -21,7 +43,7 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
         setDisplayOrder('');
       }
       setPlacement(existingImage?.placement || 'CYBER_HELP_DESK');
-      setPlatform(existingImage?.platform || 'ALL');
+      setPlatforms(getInitialPlatforms(existingImage));
       setTargetUrl(existingImage?.target_url || '');
       setCountryCode(existingImage?.country_code || 'GLOBAL');
       setImage(null); // Reset uploaded image
@@ -45,6 +67,16 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
     inputRef.current.click();
   };
 
+  const togglePlatform = (platform) => {
+    setPlatforms((current) =>
+      current.includes(platform)
+        ? current.filter((item) => item !== platform)
+        : [...current, platform],
+    );
+  };
+
+  const allPlatformsSelected = platforms.length === DEVICE_OPTIONS.length;
+
   const handleSubmit = () => {
     if (type === 'add' && !image) {
       toast.error("Please select an image");
@@ -54,12 +86,16 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
       toast.error("Redirect URL must start with http:// or https://");
       return;
     }
+    if (platforms.length === 0) {
+      toast.error("Please select at least one target device");
+      return;
+    }
 
     onSubmit({
       image,
       display_order: parseInt(displayOrder) || null,
       placement,
-      platform,
+      platforms,
       target_url: targetUrl.trim() || null,
       country_code: countryCode === 'GLOBAL' ? null : countryCode,
     });
@@ -88,20 +124,36 @@ const BannerModal = ({ isOpen, onClose, onSubmit, type = 'add', loading, existin
           )}
         </select>
 
-        <label className={styles.fieldLabel} htmlFor="advertisement-platform">
-          Target device
-        </label>
-        <select
-          id="advertisement-platform"
-          className={styles.selectInput}
-          value={platform}
-          onChange={(event) => setPlatform(event.target.value)}
-        >
-          <option value="ALL">All devices</option>
-          <option value="IOS">iOS</option>
-          <option value="ANDROID">Android</option>
-          <option value="WEB">Web</option>
-        </select>
+        <fieldset className={styles.platformFieldset}>
+          <legend className={styles.fieldLabel}>Target devices</legend>
+          <div className={styles.platformOptions}>
+            <label className={styles.platformOption}>
+              <input
+                type="checkbox"
+                checked={allPlatformsSelected}
+                onChange={() =>
+                  setPlatforms(
+                    allPlatformsSelected
+                      ? []
+                      : DEVICE_OPTIONS.map((option) => option.value),
+                  )
+                }
+              />
+              All devices
+            </label>
+            {DEVICE_OPTIONS.map((option) => (
+              <label key={option.value} className={styles.platformOption}>
+                <input
+                  type="checkbox"
+                  checked={platforms.includes(option.value)}
+                  onChange={() => togglePlatform(option.value)}
+                />
+                {option.label}
+              </label>
+            ))}
+          </div>
+          <span className={styles.platformHint}>Select one or more devices.</span>
+        </fieldset>
 
         <label className={styles.fieldLabel} htmlFor="advertisement-country">
           Audience country

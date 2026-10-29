@@ -7,15 +7,24 @@ import toast from "react-hot-toast";
 import { FaPlus, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { BANNER_COUNTRIES, countryLabel } from "./bannerCountries";
 
-const platformLabel = (platform) => {
+const platformLabel = (banner) => {
   const labels = {
-    ALL: "All devices",
     IOS: "iOS",
     ANDROID: "Android",
     WEB: "Web",
   };
+  const platforms = Array.isArray(banner?.platforms)
+    ? banner.platforms
+    : String(banner?.platform || "ALL").toUpperCase() === "ALL"
+      ? Object.keys(labels)
+      : String(banner?.platform || "")
+          .split(",")
+          .map((platform) => platform.trim());
+  const selected = [...new Set(platforms)].filter((platform) => labels[platform]);
 
-  return labels[platform] || labels.ALL;
+  return selected.length === Object.keys(labels).length
+    ? "All devices"
+    : selected.map((platform) => labels[platform]).join(" + ") || "All devices";
 };
 
 const Banners = () => {
@@ -60,7 +69,7 @@ const Banners = () => {
     return imageUrl;
   };
 
-  const handleAddBanner = async ({ image, display_order, placement, platform, target_url, country_code }) => {
+  const handleAddBanner = async ({ image, display_order, placement, platforms, target_url, country_code }) => {
     if (!image) {
       toast.error("Please select an image");
       return;
@@ -75,7 +84,7 @@ const Banners = () => {
         link: imageUrl,
         display_order: Number(display_order) || banners.length + 1 || 1,
         placement,
-        platform,
+        platforms,
         target_url,
         country_code,
       };
@@ -115,7 +124,7 @@ const Banners = () => {
     setIsModalOpen(true);
   };
 
-  const handleUpdateBanner = async ({ image, display_order, placement, platform, target_url, country_code }) => {
+  const handleUpdateBanner = async ({ image, display_order, placement, platforms, target_url, country_code }) => {
     if (!selectedImageData) {
       toast.error("No image selected for update");
       return;
@@ -135,7 +144,7 @@ const Banners = () => {
         link: newImageUrl,
         display_order: Number(display_order) || selectedImageData.display_order || 1,
         placement,
-        platform,
+        platforms,
         target_url,
         country_code,
       };
@@ -250,7 +259,7 @@ const Banners = () => {
                     : "General banner"}
               </span>
               <span className={styles.countryBadge}>{countryLabel(img.country_code)}</span>
-              <span className={styles.platformBadge}>{platformLabel(img.platform)}</span>
+              <span className={styles.platformBadge}>{platformLabel(img)}</span>
               {img.target_url && (
                 <span className={styles.linkBadge}>Redirect enabled</span>
               )}

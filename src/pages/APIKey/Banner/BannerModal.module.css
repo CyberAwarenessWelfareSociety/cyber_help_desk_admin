@@ -64,6 +64,54 @@
   color: #111827;
 }
 
+.platformFieldset {
+  width: 80%;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.platformFieldset .fieldLabel {
+  width: 100%;
+  padding: 0;
+}
+
+.platformOptions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.platformOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.platformOption:has(input:checked) {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.platformOption input {
+  accent-color: #2563eb;
+}
+
+.platformHint {
+  display: block;
+  margin-top: 6px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
 .dropZone {
   width: 80%;
   height: 200px;
