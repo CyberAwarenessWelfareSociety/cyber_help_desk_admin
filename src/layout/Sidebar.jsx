@@ -4,6 +4,7 @@ import { PERMISSIONS } from "../constants/permissions";
 import styles from "./DashboardLayout.module.css";
 import {
   MdSpaceDashboard,
+  MdGpsFixed,
   MdOutlineKey,
   MdOutlineApi,
   MdReceiptLong,
@@ -85,6 +86,7 @@ export function Sidebar({ collapsed, setCollapsed }) {
       items: [
         { icon: <MdPerson />, label: "insurance", path: "/insurance" },
         { icon: <MdPerson />, label: "Clients", path: "/get-all-clients" },
+        { icon: <MdGpsFixed />, label: "GPS Track", path: "/gps-track" },
         { icon: <MdPerson />, label: "Bulk Check", path: "/bulkcheck" },
          { icon: <MdPerson />, label: "Bulk Check LOGS", path: "/bulkcheck-logs" },
         {

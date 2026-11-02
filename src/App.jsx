@@ -79,6 +79,7 @@ import GetAccountFreezes from "./pages/AccountFreeze/AccountFreeze";
 import BulkCheckClients from "./pages/BulkCheckClients/index";
 import BulkCheckLogs from "./pages/BulkCheckClients/logs";
 import FaceMatching from "./pages/FaceMatching/FaceMatching";
+import GpsStatus from "./pages/GpsStatus/GpsStatus";
 function App() {
   console.log("hello world ")
   return (
@@ -104,6 +105,9 @@ function App() {
           <Route path="/update-password" element={<UpdatePassword />} />
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route element={<PrivateRoute allowedRoles={[ROLES.ADMIN]} />}>
+              <Route path="/gps-track" element={<GpsStatus />} />
+            </Route>
             <Route path="/api-key-access" element={<ApiKeyAccess />} />
             <Route
               path="/client-api-key-access"

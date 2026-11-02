@@ -3,6 +3,7 @@ import { ROLES } from "./Role";
 
 export const PERMISSIONS = {
   [ROLES.ADMIN]: [
+    "/gps-track",
     "/insurance",
     "/mobile-missing-report",
     "/dead-body-reports",
