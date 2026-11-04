@@ -27,6 +27,10 @@ const DEFAULT_MODELS = [
   { value: "NudeImage", label: "Remove Nude Image" },
   { value: "NudeVideo", label: "Remove Nude Video" },
   { value: "HarmfulContent", label: "Remove Harmful Content / URL" },
+  { value: "PoliceNudeImage", label: "Police - Nude Image" },
+  { value: "PoliceNudeVideo", label: "Police - Nude Video" },
+  { value: "PoliceContentTakedown", label: "Police - Content Takedown" },
+  { value: "PoliceIdTakedown", label: "Police - ID Takedown" },
 ];
 
 const formatDateForInput = (val) => {
